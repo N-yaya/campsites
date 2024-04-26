@@ -7,3 +7,6 @@ export const selectRandomCampsite = () =>{
     const index=Math.floor(Math.random()*CAMPSITES.length);
     return CAMPSITES[index];
 }
+export const selectFeaturedCampsite = () => {
+    return CAMPSITES.find((campsite)=> campsite.featured);
+}
