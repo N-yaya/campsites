@@ -1,5 +1,6 @@
 import {Button, Label, Col, FormGroup} from 'reactstrap';
-import {Formik, Field, Form} from 'formik';
+import {Formik, Field, Form, ErrorMessage} from 'formik';
+import {validateContactForm} from '../utils/validateContactForm'
 
 const ContactForm = () =>{
     const handleSubmit = (values, {resetForm}) =>{
@@ -20,6 +21,8 @@ const ContactForm = () =>{
         contactType: 'By Phone',
         feedback: ''}}
         onSubmit={handleSubmit}
+        //validate will hold object return from validateContactForm  
+        validate={validateContactForm}
         >
      <Form>
             <FormGroup row // "row" is used to specify that the children of this FormGroup should be aligned in a row
@@ -32,6 +35,10 @@ const ContactForm = () =>{
                         <Field name='firstName'
                          placeholder='First Name'
                          className='form-control' />
+                          {/* the ErrorMessage component its a Formik component that use information store in "validate" object that is retrun from validateContactForm in the utils file */}
+                         <ErrorMessage name='firstName'>
+                            {(msg) => <p className='text-danger'>{msg}</p>}
+                         </ErrorMessage>
                     </Col>
             </FormGroup>
             <FormGroup row>
@@ -41,6 +48,9 @@ const ContactForm = () =>{
                     <Col md='10'   >
                      <Field name='lastName' placeholder='Last Name'
                      className='form-control'/>
+                     <ErrorMessage name='lastName'>
+                            {(msg) => <p className='text-danger'>{msg}</p>}
+                     </ErrorMessage>
                     </Col>
             </FormGroup>
             <FormGroup row>
@@ -51,6 +61,9 @@ const ContactForm = () =>{
                      <Field name='phoneNum' 
                      placeholder='Phone  Number'
                      className='form-control'/>
+                     <ErrorMessage name='phoneNum'>
+                            {(msg) => <p className='text-danger'>{msg}</p>}
+                     </ErrorMessage>
                     </Col>
             </FormGroup>
             <FormGroup row>
@@ -61,6 +74,10 @@ const ContactForm = () =>{
                      <Field name='email' 
                      placeholder='Email'
                      className='form-control'/>
+
+                     <ErrorMessage name='email'>
+                        {(msg) => <p className='text-danger'>{msg}</p>}
+                     </ErrorMessage>
                     </Col>
             </FormGroup>
             <FormGroup row>
