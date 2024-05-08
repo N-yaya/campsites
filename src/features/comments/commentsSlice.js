@@ -7,15 +7,26 @@ const initialState = {
 
 const commentsSlice = createSlice({
     name: 'comments',
-    initialState
-});
+    initialState, // intial state is refering to comments object that is in a nother file
+    //this reduce is goining throught the entire array for comment recreate a nother one to add new comments 
+    reducers: {
+        addComment: (state, action) => {
+            console.log('addComment action.payload', action.payload);
+            console.log('addComment state.commentsArray', state.commentsArray);
 
-const partnersSlice = createSlice({
-    name: 'partners',
-    initialState
+            const newComment={
+            
+                id: state.commentsArray.length + 1,
+                ...action.payload,
+            };
+            state.commentsArray.push(newComment);
+        }
+    }
 });
 
 export const commentsReducer = commentsSlice.reducer;
+
+export const { addComment } = commentsSlice.actions;
 
 export const selectCommentsByCampsiteId = (campsiteId) => (state) => {
     return state.comments.commentsArray.filter(

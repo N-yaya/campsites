@@ -2,20 +2,24 @@ import {Button, Modal, ModalHeader, ModalBody, FormGroup, Label} from 'reactstra
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import { useState } from 'react';
 import {validateCommentForm} from '../../utils/validateCommentForm'
-
+import {useDispatch}  from 'react-redux';
+import {addComment}  from  './commentsSlice';
 
 
 const CommentForm = ({ campsiteId }) => {
     const [modalOpen, setModalOpen] = useState(false);
+    const dispatch = useDispatch();
     const handleSubmit = (values) => {
 
      const comment={
                 campsiteId: parseInt(campsiteId),
                 rating: values.rating,
                 author: values.author,
-                text: values.commentText
+                text: values.commentText,
+                date: new Date(Date.now()).toISOString()
             };
             console.log(comment);
+            dispatch(addComment(comment)); // you have to use dispatch function so that the comment object can be used by the reducer to add new comment. that is in the commentsSlice file
             setModalOpen(false);
     }
     return (
