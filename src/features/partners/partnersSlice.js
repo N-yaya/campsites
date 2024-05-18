@@ -36,7 +36,7 @@ const partnersSlice = createSlice({
         },
         [fetchPartners.rejected]: (state, action) => {
             state.isLoading = false;
-            state.errMsg = action.error ? action.error.message : 'Fetch failed';
+            state.errMsg = action.error ? action.error.message : 'Failled to fetch ';
         }
     }
 });
@@ -47,6 +47,14 @@ export const selectAllPartners = (state) => {
     return state.partners.partnersArray;
 };
 
+
+
 export const selectFeaturedPartner = (state) => {
-    return state.partners.partnersArray.find((partner) => partner.featured);
+    return {
+       featuredItem: state.partners.partnersArray.find(
+            (partner) => partner.featured
+        ),
+        isLoading: state.partners.isLoading,
+        errMsg: state.partners.errMsg
+    };
 };

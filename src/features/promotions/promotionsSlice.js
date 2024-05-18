@@ -35,13 +35,21 @@ const promotionsSlice = createSlice({
         },
         [fetchPromotions.rejected]: (state, action) =>{
           state.isloading= false;
-          state.errMsg= action.arror? action.arror.message: 'Fetch failed'
+          state.errMsg= action.arror? action.arror.message: 'Failed to fetch';
         }
     }
 });
 
 export const promotionsReducer = promotionsSlice.reducer;
 
+
+
 export const selectFeaturedPromotion = (state) => {
-    return state.promotions.promotionsArray.find((promotion) => promotion.featured);
+    return {
+        featuredItem: state.promotions.promotionsArray.find(
+            (promotion) => promotion.featured
+        ),
+        isLoading: state.promotions.isLoading,
+        errMsg: state.promotions.errMsg
+    };
 };
